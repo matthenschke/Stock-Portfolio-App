@@ -1,0 +1,106 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* root */
+#root {
+  width: 100%;
+  height: 100%;
+}
+/* all links */
+a {
+  color: black;
+}
+
+/* all ul */
+ul {
+  list-style: none;
+  display: inline-block;
+}
+
+/* all li */
+/* li {
+  border-bottom: 1px black;
+} */
+
+/* login and signup container */
+.login,
+.register {
+  background-color: white;
+  width: 60vw;
+  height: 60vh;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: black solid 1px;
+}
+
+/* portfolio */
+.portfolio {
+  display: inline-block;
+  width: 50%;
+  height: 90%;
+  border-right: 1px solid black;
+}
+
+/* purchase form */
+.purchase-form {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  height: 100%;
+}
+
+.purchase-form input {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.purchase-form button {
+  width: 50%;
+}
+
+/* Transactions */
+.transactions {
+  width: 50%;
+  height: 100%;
+}
