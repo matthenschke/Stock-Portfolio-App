@@ -3,6 +3,10 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 8000;
 
+app.get("/hello", (req, res, next) => {
+  res.send("Hello from backend");
+});
+
 // deploy to heroku
 if (process.env.NODE_ENV === "production") {
   // Serve any static files

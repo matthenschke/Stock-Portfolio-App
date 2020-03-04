@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 // importing react router dom and its components
@@ -9,8 +9,23 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Transactions from "./components/Transactions";
+import axios from "axios";
 
 function App() {
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (!loading) {
+      axios
+        .get("/hello")
+        .then(res => {
+          const { data } = res;
+          console.log(data);
+          setLoading(true);
+        })
+        .catch(err => console.log(err));
+    }
+  }, [loading]);
+
   return (
     <HashRouter>
       <Switch>
