@@ -17,7 +17,6 @@ module.exports = {
       [email, name, password, Number(process.env.HASH_LENGTH)],
       function(err, rows) {
         if (err) {
-          console.log(err);
           res.status(400).json(err);
         } else {
           res.status(200).json("successfully added user");

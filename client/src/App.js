@@ -13,18 +13,6 @@ import axios from "axios";
 
 function App() {
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    if (!loading) {
-      axios
-        .get("/hello")
-        .then(res => {
-          const { data } = res;
-          console.log(data);
-          setLoading(true);
-        })
-        .catch(err => console.log(err));
-    }
-  }, [loading]);
   return (
     <Router>
       <Switch>

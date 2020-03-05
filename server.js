@@ -13,10 +13,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/hello", async (req, res, next) => {
-  res.send("Hello from backend");
-});
-
 // Load Controllers
 const controllers = require("./controllers");
 app.use(controllers);

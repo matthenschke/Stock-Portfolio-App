@@ -1,33 +1,28 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import Auth from "../auth";
-import { testData } from "../data";
+import axios from "axios";
 import { Redirect, NavLink } from "react-router-dom";
 
 const Register = props => {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
-  const [pw, setPw] = useState(null);
+  const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
   const [redirectToHome, setRedirect] = useState(false);
 
-  const accountExists = () => {
-    if (email === testData.email) {
-      return true;
-    }
-
-    return false;
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
-    if (accountExists()) {
-      setError("Account already exists!!");
-    } else {
-      Auth.authenticateUser(email);
-      setError(null);
-      setRedirect(true);
-    }
+    axios
+      .post("/users/signup", { name, email, password })
+      .then(res => {
+        if (res.status === 200) {
+          Auth.authenticateUser(email);
+          setError(null);
+          setRedirect(true);
+        }
+      })
+      .catch(err => setError("account already exists with email!!"));
   };
 
   let { from } = props.location.state || { from: { pathname: "/home" } };
@@ -57,10 +52,10 @@ const Register = props => {
           className="mt-3"
           placeholder="Password"
           required
-          onChange={e => setPw(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
         {error && <p className="mt-2 text-danger">{error}</p>}
-        <Button variant="primary" type="submit" className="mt-3">
+        <Button variant="primary" type="submit" className="mt-2">
           Create Account
         </Button>
       </Form>

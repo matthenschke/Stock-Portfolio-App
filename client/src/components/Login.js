@@ -1,32 +1,35 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import Auth from "../auth";
-import { testData } from "../data";
+import axios from "axios";
 import { Redirect, NavLink } from "react-router-dom";
 
 const Login = props => {
   const [email, setEmail] = useState(null);
-  const [pw, setPw] = useState(null);
+  const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
   const [redirectToHome, setRedirect] = useState(false);
 
-  const accountExists = () => {
-    if (email === testData.email && pw === testData.password) {
-      return true;
-    }
+  // const accountExists = () => {
+  //   if (email === testData.email && pw === testData.password) {
+  //     return true;
+  //   }
 
-    return false;
-  };
+  //   return false;
+  // };
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (accountExists()) {
-      Auth.authenticateUser(email);
-      setError(null);
-      setRedirect(true);
-    } else {
-      setError("email or password is incorrect!");
-    }
+    axios
+      .post("/users/login", { email, password })
+      .then(res => {
+        if (res.status === 200) {
+          Auth.authenticateUser(email);
+          setError(null);
+          setRedirect(true);
+        }
+      })
+      .catch(err => setError("email or password is incorrect!"));
   };
 
   let { from } = props.location.state || { from: { pathname: "/home" } };
@@ -48,7 +51,7 @@ const Login = props => {
           className="mt-3"
           placeholder="Password"
           required
-          onChange={e => setPw(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
         {error && <p className=" mt-3 text-danger">{error}</p>}
         <Button variant="primary" type="submit" className=" mt-3">
