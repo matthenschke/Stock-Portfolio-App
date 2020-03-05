@@ -1,12 +1,11 @@
 "user strict";
 
 var mysql = require("mysql");
-// var config = require("../config/db.config");
 
 //local mysql db connection
 var pool = mysql.createPool({
   host: process.env.HOST,
-  user: process.env.USER,
+  user: process.env.USERNAME,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   waitForConnections: true,

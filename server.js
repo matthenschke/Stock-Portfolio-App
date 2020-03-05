@@ -5,14 +5,15 @@ const mysql = require("mysql");
 
 const PORT = process.env.PORT || 8000;
 
-// const db = require("./models/db");
+// get env variables
+require("dotenv").config();
 
 // Access Body Data
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/hello", (req, res, next) => {
+app.get("/hello", async (req, res, next) => {
   res.send("Hello from backend");
 });
 

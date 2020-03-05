@@ -3,7 +3,6 @@ import "./App.css";
 
 // importing react router dom and its components
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { browserHistory } from "react-router";
 
 // importing react components
 import Login from "./components/Login";
