@@ -1,14 +1,14 @@
 "user strict";
 
 var mysql = require("mysql");
-var config = require("../config/db.config");
+// var config = require("../config/db.config");
 
 //local mysql db connection
 var pool = mysql.createPool({
-  host: process.env.HOST || config.HOST,
-  user: process.env.USER || config.USER,
-  password: process.env.PASSWORD || config.PASSWORD,
-  database: process.env.DATABASE || config.DATABASE,
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

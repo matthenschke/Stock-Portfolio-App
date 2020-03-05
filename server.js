@@ -5,7 +5,7 @@ const mysql = require("mysql");
 
 const PORT = process.env.PORT || 8000;
 
-const db = require("./models/db");
+// const db = require("./models/db");
 
 // Access Body Data
 const bodyParser = require("body-parser");
