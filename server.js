@@ -5,9 +5,20 @@ const mysql = require("mysql");
 
 const PORT = process.env.PORT || 8000;
 
+const db = require("./models/db");
+
+// Access Body Data
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get("/hello", (req, res, next) => {
   res.send("Hello from backend");
 });
+
+// Load Controllers
+const controllers = require("./controllers");
+app.use(controllers);
 
 // deploy to heroku
 if (process.env.NODE_ENV === "production") {
