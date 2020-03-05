@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 
 // importing react router dom and its components
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { browserHistory } from "react-router";
 
 // importing react components
 import Login from "./components/Login";
@@ -25,16 +26,15 @@ function App() {
         .catch(err => console.log(err));
     }
   }, [loading]);
-
   return (
-    <HashRouter>
+    <Router>
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/transactions" component={Transactions} />
       </Switch>
-    </HashRouter>
+    </Router>
   );
 }
 
