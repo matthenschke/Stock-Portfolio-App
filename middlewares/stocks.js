@@ -41,10 +41,6 @@ module.exports = {
     });
   },
 
-  //   query for portfolio
-  //   select distinct ticker, SUM(qty) from transactions
-  // GROUP BY ticker
-
   addTransaction: (req, res, next) => {
     const { ticker, qty, id, type } = req.body;
     pool.query(
@@ -63,6 +59,21 @@ module.exports = {
     const { id } = req.params;
     pool.query(
       "SELECT id, type, ticker, qty, unit_price FROM transactions WHERE user_id = ? ORDER BY timestamp DESC",
+      [id],
+      function(err, rows) {
+        if (err) {
+          res.status(403).json(err);
+        } else {
+          res.status(200).json(rows);
+        }
+      }
+    );
+  },
+
+  getPortfolio: (req, res, next) => {
+    const { id } = req.params;
+    pool.query(
+      "SELECT DISTINCT ticker, SUM(qty) from transactions WHERE user_id = ? GROUP BY ticker",
       [id],
       function(err, rows) {
         if (err) {
