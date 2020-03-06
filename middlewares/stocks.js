@@ -71,5 +71,19 @@ module.exports = {
         }
       }
     );
+  },
+  getTransactions: (req, res, next) => {
+    const { id } = req.params;
+    pool.query(
+      "SELECT type, ticker, qty, unit_price FROM transactions WHERE user_id = ? ORDER BY timestamp DESC",
+      [id],
+      function(err, rows) {
+        if (err) {
+          res.status(403).json(err);
+        } else {
+          res.status(200).json(rows);
+        }
+      }
+    );
   }
 };
