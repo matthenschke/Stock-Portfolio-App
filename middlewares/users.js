@@ -27,7 +27,7 @@ module.exports = {
   authenticateUser: (req, res, next) => {
     const { email, password } = req.body;
     pool.query(
-      "SELECT * FROM users WHERE email = ? and password = SHA2(?,?)",
+      "SELECT id, name, email, balance FROM users WHERE email = ? and password = SHA2(?,?)",
       [email, password, Number(process.env.HASH_LENGTH)],
       function(err, rows) {
         if (err) {
@@ -36,7 +36,7 @@ module.exports = {
           if (rows.length == 0) {
             res.status(404).json("email or password is incorrect");
           } else {
-            res.status(200).json("successful login");
+            res.status(200).json(rows[0]);
           }
         }
       }

@@ -26,7 +26,7 @@ const Login = props => {
 
   let { from } = props.location.state || { from: { pathname: "/home" } };
   if (redirectToHome) {
-    return <Redirect to="/home"></Redirect>;
+    return <Redirect to={from}></Redirect>;
   }
   return (
     <Container className="login text-center">

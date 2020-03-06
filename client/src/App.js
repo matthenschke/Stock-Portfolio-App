@@ -9,17 +9,16 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Transactions from "./components/Transactions";
-import axios from "axios";
+import Protected from "./components/Protected";
 
 function App() {
-  const [loading, setLoading] = useState(false);
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/transactions" component={Transactions} />
+        <Protected exact path="/home" component={Home} />
+        <Protected exact path="/transactions" component={Transactions} />
       </Switch>
     </Router>
   );
