@@ -1,13 +1,30 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import auth from "../auth";
+import axios from "axios";
 
 const PurchaseForm = () => {
   const [ticker, setTicker] = useState(null);
   const [qty, setQty] = useState(null);
+  const [msg, setMsg] = useState(null);
 
+  const { id } = auth.activeUser;
   const handleSubmit = e => {
     e.preventDefault();
+    axios
+      .post("/stocks/buy", { ticker, qty, id, type: "BUY" })
+      .then(response => {
+        if ((response.status = 200)) {
+          setMsg(<p className="mt-3 text-success">Purchased Successful</p>);
+        }
+      })
+      .catch(e =>
+        setMsg(
+          <p className="mt-3 text-danger">
+            Insufficient funds or Ticker not found
+          </p>
+        )
+      );
   };
   const { balance } = auth.activeUser;
   return (
@@ -29,6 +46,7 @@ const PurchaseForm = () => {
           required
           onChange={e => setQty(e.target.value)}
         />
+        {msg && msg}
         <Button variant="primary" type="submit" className=" mt-3">
           Buy
         </Button>

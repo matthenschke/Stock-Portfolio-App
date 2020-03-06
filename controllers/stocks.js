@@ -13,7 +13,7 @@ router.post(
   getStockInfo,
   buyStocks,
   updateBalance,
-  addToPortfolio,
+  //   addToPortfolio,
   addTransaction
 );
 module.exports = router;
