@@ -10,16 +10,16 @@ CREATE TABLE users(
 CREATE TABLE transactions(
 `id` INT PRIMARY KEY AUTO_INCREMENT,
 `user_id` INT NOT NULL REFERENCES Users(id),
-`stock_name` VARCHAR(30) NOT NULL,
+`ticker` VARCHAR(30) NOT NULL,
 `unit_price` DECIMAL(15,2) NOT NULL,
 `qty` INT NOT NULL,
 `type` VARCHAR(4) NOT NULL,
-`timestamp` DATETIME NOT NULL DEFAULT NOW()
+`timestamp` DATETIME NOT NULL 
 );
 
 CREATE TABLE ownership(
 `user_id` INT NOT NULL REFERENCES Users(id),
-`stock_name` VARCHAR(30) NOT NULL,
+`ticker` VARCHAR(30) NOT NULL,
 `qty` INT NOT NULL,
 PRIMARY KEY (userID, stock)
 );

@@ -4,7 +4,7 @@ module.exports = {
   getUsers: (req, res, next) => {
     pool.query("SELECT * FROM users", function(err, rows) {
       if (err) {
-        res.status(400).json("error");
+        res.status(403).json("error");
       } else {
         res.status(200).json(rows);
       }
@@ -17,7 +17,7 @@ module.exports = {
       [email, name, password, Number(process.env.HASH_LENGTH)],
       function(err, rows) {
         if (err) {
-          res.status(400).json(err);
+          res.status(401).json(err);
         } else {
           res.status(200).json("successfully added user");
         }
@@ -34,10 +34,25 @@ module.exports = {
           res.status(400).json("error");
         } else {
           if (rows.length == 0) {
-            res.status(404).json("email or password is incorrect");
+            res.status(401).json("email or password is incorrect");
           } else {
             res.status(200).json(rows[0]);
           }
+        }
+      }
+    );
+  },
+
+  updateBalance: (req, res, next) => {
+    const { id } = req.body;
+    pool.query(
+      "UPDATE users SET balance = ? WHERE id = ?",
+      [req.newBalance, id],
+      function(err, rows) {
+        if (err) {
+          res.status(400).json(err);
+        } else {
+          next();
         }
       }
     );
