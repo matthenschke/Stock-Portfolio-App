@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import auth from "../auth";
 
 const PurchaseForm = () => {
   const [ticker, setTicker] = useState(null);
@@ -8,10 +9,10 @@ const PurchaseForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
   };
-
+  const { balance } = auth.activeUser;
   return (
     <div className="mt-5 purchase-form text-center">
-      <h2>Cash - $5,000</h2>
+      <h2>{`Cash - $${balance}`}</h2>
       <Form className="mt-5" onSubmit={handleSubmit}>
         <Form.Control
           type="text"

@@ -1,7 +1,7 @@
 class Auth {
   constructor() {
     this.isAuthenticated = false;
-    this.activeUser = "";
+    this.activeUser = null;
   }
   // method to authenticate user after user signs up or logs in
   authenticateUser = activeUser => {
@@ -12,7 +12,7 @@ class Auth {
   // method to deauthenticate user when user logs out
   logOut = () => {
     this.isAuthenticated = false;
-    this.activeUser = "";
+    this.activeUser = null;
   };
 }
 

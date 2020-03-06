@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import Auth from "../auth";
+import auth from "../auth";
 import axios from "axios";
 import { Redirect, NavLink } from "react-router-dom";
 
@@ -10,21 +10,13 @@ const Login = props => {
   const [error, setError] = useState(null);
   const [redirectToHome, setRedirect] = useState(false);
 
-  // const accountExists = () => {
-  //   if (email === testData.email && pw === testData.password) {
-  //     return true;
-  //   }
-
-  //   return false;
-  // };
-
   const handleSubmit = e => {
     e.preventDefault();
     axios
       .post("/users/login", { email, password })
       .then(res => {
         if (res.status === 200) {
-          Auth.authenticateUser(email);
+          auth.authenticateUser(res.data);
           setError(null);
           setRedirect(true);
         }
@@ -34,7 +26,7 @@ const Login = props => {
 
   let { from } = props.location.state || { from: { pathname: "/home" } };
   if (redirectToHome) {
-    return <Redirect to={from}></Redirect>;
+    return <Redirect to="/home"></Redirect>;
   }
   return (
     <Container className="login text-center">
