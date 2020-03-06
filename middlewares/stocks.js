@@ -40,20 +40,7 @@ module.exports = {
       }
     });
   },
-  // addToPortfolio: (req, res, next) => {
-  //   const { ticker, qty, id } = req.body;
-  //   pool.query(
-  //     "INSERT INTO ownership (user_id, ticker, qty) VALUES (?,?,?)",
-  //     [id, ticker, qty],
-  //     function(err, rows) {
-  //       if (err) {
-  //         res.status(400).json(err);
-  //       } else {
-  //         next();
-  //       }
-  //     }
-  //   );
-  // }
+
   //   query for portfolio
   //   select distinct ticker, SUM(qty) from transactions
   // GROUP BY ticker
@@ -75,7 +62,7 @@ module.exports = {
   getTransactions: (req, res, next) => {
     const { id } = req.params;
     pool.query(
-      "SELECT type, ticker, qty, unit_price FROM transactions WHERE user_id = ? ORDER BY timestamp DESC",
+      "SELECT id, type, ticker, qty, unit_price FROM transactions WHERE user_id = ? ORDER BY timestamp DESC",
       [id],
       function(err, rows) {
         if (err) {
