@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-import auth from "../auth";
 import axios from "axios";
 
 const PurchaseForm = () => {
@@ -8,7 +8,9 @@ const PurchaseForm = () => {
   const [qty, setQty] = useState(null);
   const [msg, setMsg] = useState(null);
 
-  const { id } = auth.activeUser;
+  const user = useSelector(state => state.user);
+  const { id, balance } = user;
+  console.log(balance);
   const handleSubmit = e => {
     e.preventDefault();
     axios
@@ -26,7 +28,6 @@ const PurchaseForm = () => {
         )
       );
   };
-  const { balance } = auth.activeUser;
   return (
     <div className="mt-5 purchase-form text-center">
       <h2>{`Cash - $${balance}`}</h2>

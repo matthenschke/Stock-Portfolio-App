@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Navbar from "./Navbar";
 import axios from "axios";
-import auth from "../auth";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { id } = auth.activeUser;
+  const user = useSelector(state => state.user);
+  const { id } = user;
 
   useEffect(() => {
     axios

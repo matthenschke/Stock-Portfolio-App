@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import action from "../action";
+
 import { Container, Form, Button } from "react-bootstrap";
-import Auth from "../auth";
 import axios from "axios";
-import { Redirect, NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const Register = props => {
   const [name, setName] = useState(null);
@@ -11,13 +13,15 @@ const Register = props => {
   const [error, setError] = useState(null);
   const [redirectToHome, setRedirect] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = e => {
     e.preventDefault();
     axios
       .post("/users/signup", { name, email, password })
       .then(res => {
         if (res.status === 200) {
-          Auth.authenticateUser(email);
+          dispatch(action.login(res.data));
           setError(null);
           setRedirect(true);
         }

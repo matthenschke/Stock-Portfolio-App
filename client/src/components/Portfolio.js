@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import auth from "../auth";
+import React from "react";
 
 const Portfolio = props => {
   const { stocks } = props;
   let portfolio = stocks.map(stock => {
-    console.log(stock);
     const { ticker, qty, latestPrice, open: openingPrice } = stock;
     let classes = "";
 

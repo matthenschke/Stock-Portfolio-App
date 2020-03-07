@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import action from "../action";
+
 import { Container, Form, Button } from "react-bootstrap";
-import auth from "../auth";
 import axios from "axios";
 import { Redirect, NavLink } from "react-router-dom";
 
@@ -10,14 +12,16 @@ const Login = props => {
   const [error, setError] = useState(null);
   const [redirectToHome, setRedirect] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = e => {
     e.preventDefault();
     axios
       .post("/users/login", { email, password })
       .then(res => {
         if (res.status === 200) {
-          auth.authenticateUser(res.data);
           setError(null);
+          dispatch(action.login(res.data));
           setRedirect(true);
         }
       })

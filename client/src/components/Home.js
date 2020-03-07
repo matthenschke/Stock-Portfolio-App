@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Portfolio from "./Portfolio";
 import PurchaseForm from "./PurchaseForm";
-import auth from "../auth";
+
+import { useSelector } from "react-redux";
+
 import axios from "axios";
 
 const Home = () => {
   const [stocks, setStocks] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { id } = auth.activeUser;
+  const { id } = useSelector(state => state.user);
 
   useEffect(() => {
     axios
