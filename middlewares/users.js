@@ -15,11 +15,22 @@ module.exports = {
     pool.query(
       "INSERT INTO users (email, name, password) VALUES (?,?, SHA2(?, ?))",
       [email, name, password, Number(process.env.HASH_LENGTH)],
-      function(err, rows) {
+      function(err, result) {
         if (err) {
           res.status(401).json(err);
         } else {
-          res.status(200).json("successfully added user");
+          const { insertId: id } = result;
+          pool.query(
+            "SELECT id, name, email, balance FROM users WHERE id = ?",
+            [id],
+            function(err, rows) {
+              if (err) {
+                res.status(400).json(err);
+              } else {
+                res.status(200).json(rows[0]);
+              }
+            }
+          );
         }
       }
     );

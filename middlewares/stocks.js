@@ -72,7 +72,6 @@ module.exports = {
 
   getDistinctStocks: (req, res, next) => {
     const { id } = req.params;
-    let results = [];
     pool.query(
       "SELECT DISTINCT ticker, SUM(qty) AS qty from transactions WHERE user_id = ? GROUP BY ticker",
       [id],
