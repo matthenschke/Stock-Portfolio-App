@@ -1,5 +1,7 @@
 MySQL
 React
 Redux
+CSS
+React-Bootstrap
 Express
 Heroku
