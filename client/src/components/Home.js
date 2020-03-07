@@ -1,8 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Portfolio from "./Portfolio";
 import PurchaseForm from "./PurchaseForm";
+import auth from "../auth";
 
 const Home = () => {
   return (

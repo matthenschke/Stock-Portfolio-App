@@ -23,12 +23,24 @@ const Portfolio = () => {
 
   if (!loading) {
     let portfolio = stocks.map(stock => {
-      const { ticker, qty } = stock;
-      // const classes = [];
-      // axios.get
+      console.log(stock);
+      const { ticker, qty, latestPrice, open: openingPrice } = stock;
+      let classes = "";
+
+      if (openingPrice) {
+        if (openingPrice > latestPrice) {
+          classes = "text-danger";
+        } else if (openingPrice < latestPrice) {
+          classes = "text-success";
+        } else {
+          classes = "text-secondary";
+        }
+      }
+
       return (
-        <li key={ticker} className={[...classes]}>
-          {`${ticker} - ${qty} Shares @`}
+        <li key={ticker} className={`${classes}`}>
+          <span className={classes}></span>
+          {`${ticker} - ${qty} Shares @   ${latestPrice}`}
           <hr />
         </li>
       );
