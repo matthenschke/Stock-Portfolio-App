@@ -70,18 +70,40 @@ module.exports = {
     );
   },
 
-  getPortfolio: (req, res, next) => {
+  getDistinctStocks: (req, res, next) => {
     const { id } = req.params;
+    let results = [];
     pool.query(
-      "SELECT DISTINCT ticker, SUM(qty) from transactions WHERE user_id = ? GROUP BY ticker",
+      "SELECT DISTINCT ticker, SUM(qty) AS qty from transactions WHERE user_id = ? GROUP BY ticker",
       [id],
       function(err, rows) {
         if (err) {
           res.status(403).json(err);
         } else {
-          res.status(200).json(rows);
+          req.results = rows;
+          next();
         }
       }
     );
+  },
+
+  createPortfolio: async (req, res, next) => {
+    let { results } = req;
+    let promises = results.map(async row => {
+      try {
+        const { ticker } = row;
+        const response = await axios.get(
+          `https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=${process.env.API_KEY}`
+        );
+        const {
+          data: { open, latestPrice }
+        } = response;
+        return { ...row, open, latestPrice };
+      } catch (err) {
+        res.status(403).json(err);
+      }
+    });
+    results = await Promise.all(promises);
+    res.status(200).json(results);
   }
 };

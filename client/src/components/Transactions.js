@@ -26,7 +26,7 @@ const Transactions = () => {
       const { id, ticker, type, qty, unit_price: unitPrice } = transaction;
       return (
         <li key={id}>
-          {`${type}(${ticker}) - ${qty} shares @ ${unitPrice.toFixed(2)}`}
+          {`${type}(${ticker}) - ${qty} Shares @ ${unitPrice.toFixed(2)}`}
           <hr />
         </li>
       );

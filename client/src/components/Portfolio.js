@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import auth from "../auth";
 
@@ -12,6 +12,7 @@ const Portfolio = () => {
       .get(`/stocks/portfolio/${id}`)
       .then(response => {
         const { data: stocks } = response;
+        console.log(stocks);
         setStocks(stocks);
         setLoading(false);
       })
@@ -21,27 +22,21 @@ const Portfolio = () => {
   }, [loading]);
 
   if (!loading) {
+    let portfolio = stocks.map(stock => {
+      const { ticker, qty } = stock;
+      // const classes = [];
+      // axios.get
+      return (
+        <li key={ticker} className={[...classes]}>
+          {`${ticker} - ${qty} Shares @`}
+          <hr />
+        </li>
+      );
+    });
     return (
       <div className="portfolio">
         <h1 className="text-center">Portfolio ($5943.34)</h1>
-        <ul className="ml-5 mt-5">
-          <li>
-            BUY(AAPL) - 6 Shares @ 300.00
-            <hr />
-          </li>
-          <li>
-            BUY(STWD) - 40 Shares @ 20.56
-            <hr />
-          </li>
-          <li>
-            BUY(AAPL) - 6 Shares @ 300.00
-            <hr />
-          </li>
-          <li>
-            BUY(STWD) - 40 Shares @ 20.56
-            <hr />
-          </li>
-        </ul>
+        <ul className="ml-5 mt-5">{portfolio}</ul>
       </div>
     );
   } else {

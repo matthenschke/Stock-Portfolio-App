@@ -3,7 +3,8 @@ const router = express.Router(); // set up express router for authentication
 const {
   getStockInfo,
   buyStocks,
-  getPortfolio,
+  getDistinctStocks,
+  createPortfolio,
   addTransaction,
   getTransactions
 } = require("../middlewares/stocks");
@@ -13,5 +14,5 @@ router.post("/buy", getStockInfo, buyStocks, updateBalance, addTransaction);
 
 router.get("/transactions/:id", getTransactions);
 
-router.get("/portfolio/:id", getPortfolio);
+router.get("/portfolio/:id", getDistinctStocks, createPortfolio);
 module.exports = router;
