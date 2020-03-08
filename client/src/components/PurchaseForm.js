@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import actions from "../actions";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
@@ -9,14 +10,16 @@ const PurchaseForm = () => {
   const [msg, setMsg] = useState(null);
 
   const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
   const { id, balance } = user;
-  console.log(balance);
   const handleSubmit = e => {
     e.preventDefault();
     axios
       .post("/stocks/buy", { ticker, qty, id, type: "BUY" })
       .then(response => {
         if ((response.status = 200)) {
+          dispatch(actions.updateBalance(response.data));
           setMsg(<p className="mt-3 text-success">Purchased Successful</p>);
         }
       })
@@ -30,7 +33,7 @@ const PurchaseForm = () => {
   };
   return (
     <div className="mt-5 purchase-form text-center">
-      <h2>{`Cash - $${balance}`}</h2>
+      <h2>{`Cash - $${balance.toFixed(2)}`}</h2>
       <Form className="mt-5" onSubmit={handleSubmit}>
         <Form.Control
           type="text"

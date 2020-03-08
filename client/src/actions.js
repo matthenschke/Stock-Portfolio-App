@@ -5,10 +5,10 @@ const login = userObj => {
   };
 };
 
-const updateBalance = userObj => {
+const updateBalance = newBalance => {
   return {
     type: "BUY_STOCKS",
-    payload: userObj
+    payload: newBalance
   };
 };
 

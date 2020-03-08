@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import action from "../action";
+import actions from "../actions";
 
 import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
@@ -19,9 +19,9 @@ const Register = props => {
     e.preventDefault();
     axios
       .post("/users/signup", { name, email, password })
-      .then(res => {
-        if (res.status === 200) {
-          dispatch(action.login(res.data));
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(actions.login(response.data));
           setError(null);
           setRedirect(true);
         }

@@ -10,14 +10,17 @@ import axios from "axios";
 const Home = () => {
   const [stocks, setStocks] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { id } = useSelector(state => state.user);
 
+  const user = useSelector(state => state.user);
+  const { id, balance } = user;
+  console.log(balance);
   useEffect(() => {
     if (loading) {
       axios
         .get(`/stocks/portfolio/${id}`)
         .then(response => {
           const { data: stocks } = response;
+          console.log("Stocks");
           console.log(stocks);
           setStocks(stocks);
           setLoading(false);

@@ -30,9 +30,9 @@ const Portfolio = props => {
 
   return (
     <div className="portfolio">
-      <h1 className="text-center">{`Portfolio $${portfolioTotal.toFixed(
+      <h1 className="text-center">{`Portfolio ($${portfolioTotal.toFixed(
         2
-      )}`}</h1>
+      )})`}</h1>
       <ul className="ml-5 mt-5">{portfolio}</ul>
     </div>
   );
