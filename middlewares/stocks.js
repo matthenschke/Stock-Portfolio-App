@@ -43,6 +43,7 @@ module.exports = {
 
   addTransaction: (req, res, next) => {
     const { ticker, qty, id, type } = req.body;
+    const { newBalance } = req;
     pool.query(
       "INSERT INTO transactions (user_id, ticker, unit_price, qty, type, timestamp) VALUES (?,?,?, ?, ?, ?)",
       [id, ticker, req.unitPrice, qty, type, new Date()],
@@ -50,7 +51,7 @@ module.exports = {
         if (err) {
           res.status(400).json(err);
         } else {
-          res.status(200).json("transaction complete");
+          res.status(200).json(newBalance);
         }
       }
     );

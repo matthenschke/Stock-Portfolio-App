@@ -63,7 +63,6 @@ module.exports = {
         if (err) {
           res.status(400).json(err);
         } else {
-          console.log(rows);
           next();
         }
       }
