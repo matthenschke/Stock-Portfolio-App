@@ -10,7 +10,7 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Transactions from "./components/Transactions";
 import Protected from "./components/Protected";
-import Error from "./components/Error";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Protected exact path="/home" component={Home} />
         <Protected exact path="/transactions" component={Transactions} />
-        <Route component={Error} />
+        <Route component={NotFound} />
       </Switch>
     </Router>
   );

@@ -2,23 +2,25 @@ import React from "react";
 
 const Portfolio = props => {
   const { stocks } = props;
+  let portfolioTotal = 0;
   let portfolio = stocks.map(stock => {
     const { ticker, qty, latestPrice, open: openingPrice } = stock;
-    let classes = "";
+    let colorClass = "";
+
+    portfolioTotal += latestPrice * qty;
 
     if (openingPrice) {
       if (openingPrice > latestPrice) {
-        classes = "text-danger";
+        colorClass = "text-danger";
       } else if (openingPrice < latestPrice) {
-        classes = "text-success";
+        colorClass = "text-success";
       } else {
-        classes = "text-secondary";
+        colorClass = "text-secondary";
       }
     }
 
     return (
-      <li key={ticker} className={`${classes}`}>
-        <span className={classes}></span>
+      <li key={ticker} className={`${colorClass}`}>
         {`${ticker} - ${qty} Shares @`}
         <span className="pl-4">{latestPrice}</span>
         <hr />
@@ -28,7 +30,9 @@ const Portfolio = props => {
 
   return (
     <div className="portfolio">
-      <h1 className="text-center">Portfolio ($5943.34)</h1>
+      <h1 className="text-center">{`Portfolio $${portfolioTotal.toFixed(
+        2
+      )}`}</h1>
       <ul className="ml-5 mt-5">{portfolio}</ul>
     </div>
   );

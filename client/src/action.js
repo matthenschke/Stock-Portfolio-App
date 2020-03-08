@@ -5,6 +5,14 @@ const login = userObj => {
   };
 };
 
+const updateBalance = userObj => {
+  return {
+    type: "BUY_STOCKS",
+    payload: userObj
+  };
+};
+
 export default {
-  login
+  login,
+  updateBalance
 };

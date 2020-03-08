@@ -13,17 +13,19 @@ const Home = () => {
   const { id } = useSelector(state => state.user);
 
   useEffect(() => {
-    axios
-      .get(`/stocks/portfolio/${id}`)
-      .then(response => {
-        const { data: stocks } = response;
-        console.log(stocks);
-        setStocks(stocks);
-        setLoading(false);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    if (loading) {
+      axios
+        .get(`/stocks/portfolio/${id}`)
+        .then(response => {
+          const { data: stocks } = response;
+          console.log(stocks);
+          setStocks(stocks);
+          setLoading(false);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   }, [loading]);
 
   if (!loading) {
