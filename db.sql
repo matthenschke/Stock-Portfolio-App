@@ -16,10 +16,3 @@ CREATE TABLE transactions(
 `type` VARCHAR(4) NOT NULL,
 `timestamp` DATETIME NOT NULL 
 );
-
-CREATE TABLE ownership(
-`user_id` INT NOT NULL REFERENCES Users(id),
-`ticker` VARCHAR(30) NOT NULL,
-`qty` INT NOT NULL,
-PRIMARY KEY (userID, stock)
-);
